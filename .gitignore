@@ -6,6 +6,7 @@ __pycache__/
 
 # Variables de entorno
 .env
+.env.example
 
 # Vectorstore generado (se regenera con el script)
 vectorstore/*
