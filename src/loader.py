@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
 load_dotenv()
 
@@ -50,15 +50,8 @@ def dividir_en_fragmentos(documentos):
 
 def crear_vectorstore(fragmentos, guardar: bool = True):
     """Genera embeddings para los fragmentos y crea el índice vectorial FAISS."""
-    api_key = os.getenv("GOOGLE_API_KEY")
-    if not api_key:
-        raise EnvironmentError(
-            "No se encontró GOOGLE_API_KEY. Define tu clave en el archivo .env"
-        )
-
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/text-embedding-004",
-        google_api_key=api_key,
+    embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
     vectorstore = FAISS.from_documents(fragmentos, embeddings)
@@ -74,15 +67,8 @@ def crear_vectorstore(fragmentos, guardar: bool = True):
 
 def cargar_vectorstore_existente():
     """Carga un vectorstore FAISS previamente guardado en disco."""
-    api_key = os.getenv("GOOGLE_API_KEY")
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/text-embedding-004",
-        google_api_key=api_key,
-    )
-    return FAISS.load_local(
-        VECTORSTORE_PATH,
-        embeddings,
-        allow_dangerous_deserialization=True,
+    embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
 
