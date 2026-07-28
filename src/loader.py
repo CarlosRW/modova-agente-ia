@@ -62,7 +62,7 @@ def crear_vectorstore(fragmentos, guardar: bool = True):
         vectorstore.save_local(VECTORSTORE_PATH)
         print(f"✅ Vectorstore guardado en '{VECTORSTORE_PATH}'.")
 
-    return vectorstore
+    return vectorstore    # <-- confirma que esta línea existe
 
 
 def cargar_vectorstore_existente():
@@ -70,21 +70,22 @@ def cargar_vectorstore_existente():
     embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
+    return FAISS.load_local(     # <-- confirma que dice "return", no solo la llamada suelta
+        VECTORSTORE_PATH,
+        embeddings,
+        allow_dangerous_deserialization=True,
+    )
 
 
 def obtener_vectorstore():
-    """
-    Punto de entrada principal: si ya existe un vectorstore guardado, lo carga;
-    si no, procesa el documento desde cero y lo crea.
-    """
     if os.path.exists(VECTORSTORE_PATH):
         print("📂 Vectorstore existente encontrado. Cargando desde disco...")
-        return cargar_vectorstore_existente()
+        return cargar_vectorstore_existente()   # <-- debe tener "return"
 
     print("⚙️  No hay vectorstore previo. Procesando documento desde cero...")
     documentos = cargar_documento()
     fragmentos = dividir_en_fragmentos(documentos)
-    return crear_vectorstore(fragmentos)
+    return crear_vectorstore(fragmentos)   # <-- debe tener "return"
 
 
 if __name__ == "__main__":
