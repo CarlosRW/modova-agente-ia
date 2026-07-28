@@ -5,7 +5,6 @@ Agente de inteligencia artificial que responde preguntas en lenguaje natural sob
 > Proyecto desarrollado para el **Challenge Alura Agente**.
 
 🔗 **Demo en vivo:** [https://modova-agente-ia.streamlit.app/](https://modova-agente-ia.streamlit.app/)
-*(reemplaza este link por tu URL real de Streamlit Cloud si es diferente)*
 
 ---
 
@@ -198,7 +197,8 @@ Se abrirá en `http://localhost:8501`.
 - **Plataforma:** Streamlit Community Cloud
 - Captura de pantalla:
 
-![Agente Modova funcionando](docs/screenshot-deploy.png)
+![Agente Modova funcionando](docs/screenshot-deploy1.png)
+![Agente Modova funcionando](docs/screenshot-deploy2.png)
 
 ## 📝 Notas de diseño
 
