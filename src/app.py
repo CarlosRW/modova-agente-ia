@@ -7,6 +7,14 @@ las políticas de Modova (privacidad, reembolsos, envíos, FAQ, términos).
 
 import streamlit as st
 
+import os
+
+# En Streamlit Cloud, las claves se guardan en st.secrets.
+# Las copiamos a las variables de entorno para que el resto del
+# código (que usa os.getenv) funcione igual en local y en la nube.
+if "GROQ_API_KEY" in st.secrets:
+    os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
